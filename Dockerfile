@@ -1,6 +1,6 @@
 FROM antergos/archlinux-base-devel
 
-RUN pacman -Syyu gcc cmake make intel-tbb openmpi git glfw-x11 wget
+RUN pacman -Syyu gcc cmake make intel-tbb openmpi git glfw-x11 wget --noconfirm
 
 # All builds will be done in home dir
 WORKDIR $HOME
