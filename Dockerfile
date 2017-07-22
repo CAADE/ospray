@@ -1,6 +1,9 @@
 FROM antergos/archlinux-base-devel
 
 RUN pacman -Syyu gcc cmake make intel-tbb openmpi git glfw-x11 wget --noconfirm
+RUN mkdir /gitlab
+
+ENV HOME=/gitlab
 
 # All builds will be done in home dir
 WORKDIR $HOME
