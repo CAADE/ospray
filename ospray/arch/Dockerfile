@@ -1,6 +1,9 @@
 FROM antergos/archlinux-base-devel
 
-RUN pacman -Syyu gcc cmake make intel-tbb openmpi git glfw-x11 wget --noconfirm
+ENV ISPC_VERSION="1.9.1"
+ENV EMBREE_VERSION="2.16.4"
+
+RUN pacman -Syyu gcc clang cmake make intel-tbb openmpi git glfw-x11 wget --noconfirm
 RUN mkdir /gitlab
 
 ENV HOME=/gitlab
@@ -8,13 +11,14 @@ ENV HOME=/gitlab
 # All builds will be done in home dir
 WORKDIR $HOME
 
-# Download and install embree
-RUN wget https://github.com/embree/embree/releases/download/v2.16.4/embree-2.16.4.x86_64.linux.tar.gz && tar -xaf embree-2.16.4.x86_64.linux.tar.gz && rm embree-2.16.4.x86_64.linux.tar.gz
-
 # Download and unpack ISPC
-RUN wget https://downloads.sourceforge.net/project/ispcmirror/v1.9.1/ispc-v1.9.1-linux.tar.gz && tar -xaf ispc-v1.9.1-linux.tar.gz && rm ispc-v1.9.1-linux.tar.gz
+RUN wget https://downloads.sourceforge.net/project/ispcmirror/v$ISPC_VERSION/ispc-v$ISPC_VERSION-linux.tar.gz && tar -xaf ispc-v$ISPC_VERSION-linux.tar.gz && rm ispc-v$ISPC_VERSION-linux.tar.gz
 
-ENV PATH $PATH:$HOME/ispc-v1.9.1-linux
-ENV embree_DIR=$HOME/embree-2.16.4.x86_64.linux
+ENV PATH $PATH:$HOME/ispc-v${ISPC_VERSION}-linux
+
+# Download and install embree
+RUN wget https://github.com/embree/embree/releases/download/v${EMBREE_VERSION}/embree-${EMBREE_VERSION}.x86_64.linux.tar.gz && tar -xaf embree-${EMBREE_VERSION}.x86_64.linux.tar.gz && rm embree-${EMBREE_VERSION}.x86_64.linux.tar.gz
+
+ENV embree_DIR=$HOME/embree-${EMBREE_VERSION}.x86_64.linux
 
 CMD ["/bin/bash"]

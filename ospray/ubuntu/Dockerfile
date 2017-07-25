@@ -1,13 +1,14 @@
 FROM ubuntu:16.04
 
+ENV ISPC_VERSION="1.9.1"
+ENV EMBREE_VERSION="2.16.4"
+
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install wget cmake g++ git libtbb-dev libglfw3-dev libopenmpi-dev
+RUN apt -y install wget cmake g++ clang git libtbb-dev libglfw3-dev libopenmpi-dev
 RUN mkdir /gitlab
 
 ENV HOME=/gitlab
-ENV ISPC_VERSION="1.9.1"
-ENV EMBREE_VERSION="2.16.4"
 
 # All builds will be done in home dir
 WORKDIR $HOME
