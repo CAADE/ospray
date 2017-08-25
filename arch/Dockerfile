@@ -3,7 +3,7 @@ FROM antergos/archlinux-base-devel
 ENV ISPC_VERSION="1.9.1"
 ENV EMBREE_VERSION="2.16.4"
 
-RUN pacman -Syyu gcc clang cmake make intel-tbb openmpi git glfw-x11 wget --noconfirm
+RUN pacman -Syyu --noconfirm gcc clang cmake make intel-tbb openmpi git glfw-x11 wget
 RUN mkdir /gitlab
 
 ENV HOME=/gitlab
