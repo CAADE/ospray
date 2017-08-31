@@ -1,7 +1,7 @@
 FROM centos:7
 
 ENV ISPC_VERSION="1.9.1"
-ENV EMBREE_VERSION="2.16.4"
+ENV EMBREE_VERSION="2.16.5"
 
 RUN mkdir /gitlab
 ENV HOME=/gitlab

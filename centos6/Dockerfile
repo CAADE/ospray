@@ -1,7 +1,8 @@
 FROM centos:6
 
 ENV ISPC_VERSION="1.9.1"
-ENV EMBREE_VERSION="2.16.4"
+ENV EMBREE_VERSION="2.16.5"
+ENV TBB_VERSION="2017_20170604"
 
 RUN mkdir /gitlab
 ENV HOME=/gitlab
@@ -21,7 +22,7 @@ ENV CC=/opt/rh/devtoolset-3/root/usr/bin/gcc
 ENV CXX=/opt/rh/devtoolset-3/root/usr/bin/g++
 
 # Download and install tbb
-ENV TBB_BASE tbb2017_20170412oss
+ENV TBB_BASE tbb${TBB_VERSION}oss
 ENV TBB_TAR ${TBB_BASE}_lin.tgz
 RUN wget http://sdvis.org/ospray/download/dependencies/linux/${TBB_TAR} && tar -xaf ${TBB_TAR} && rm ${TBB_TAR}
 ENV TBB_ROOT=$HOME/$TBB_BASE
