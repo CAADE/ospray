@@ -5,7 +5,7 @@ ENV EMBREE_VERSION="2.16.5"
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install wget cmake g++ clang git libtbb-dev libglfw3-dev libopenmpi-dev
+RUN apt -y install wget cmake g++ clang git libtbb-dev libglfw3-dev libopenmpi-dev alien
 RUN mkdir /gitlab
 
 ENV HOME=/gitlab
@@ -18,11 +18,15 @@ RUN wget https://downloads.sourceforge.net/project/ispcmirror/v$ISPC_VERSION/isp
 
 ENV PATH $PATH:$HOME/ispc-v${ISPC_VERSION}-linux
 
-# Build and install embree
-RUN git clone http://github.com/embree/embree.git embree-src && mkdir embree-src/build
-RUN cd embree-src/build && cmake -DCMAKE_INSTALL_PREFIX=/gitlab/embree -DEMBREE_GEOMETRY_HAIR=OFF -DEMBREE_GEOMETRY_LINES=OFF -DEMBREE_GEOMETRY_QUADS=OFF -DEMBREE_GEOMETRY_SUBDIV=OFF -DEMBREE_TUTORIALS=OFF -DEMBREE_MAX_ISA=AVX2 .. && make -j`nproc` install
-RUN rm -rf $HOME/embree-src
+# Download and install embree
+RUN wget https://github.com/embree/embree/releases/download/v$EMBREE_VERSION/embree-$EMBREE_VERSION.x86_64.rpm.tar.gz && \
+     tar -xvf embree-$EMBREE_VERSION.x86_64.rpm.tar.gz && \
+     alien --scripts *.rpm && \
+     dpkg -i *.deb && \
+     rm embree-$EMBREE_VERSION.x86_64.rpm.tar.gz *.rpm *.deb
+ENV embree_DIR /usr/lib64/cmake/embree-$EMBREE_VERSION
 
-ENV embree_DIR=$HOME/embree
+# Embree is installed in /usr/lib64 so we have to add it to LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/
 
 CMD ["/bin/bash"]
