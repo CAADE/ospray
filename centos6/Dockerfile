@@ -21,7 +21,8 @@ ENV CC=/opt/rh/devtoolset-3/root/usr/bin/gcc
 ENV CXX=/opt/rh/devtoolset-3/root/usr/bin/g++
 
 # Download and unpack TBB from official site because distro TBB from centos6 is too old.
-ENV TBB_TAR tbb2017_20170604oss_lin.tgz
+ENV TBB_BASE tbb2017_20170604oss 
+ENV TBB_TAR ${TBB_BASE}_lin.tgz
 RUN wget https://github.com/01org/tbb/releases/download/2017_U7/${TBB_TAR} && tar -xaf ${TBB_TAR} && rm ${TBB_TAR}
 ENV TBB_ROOT=$HOME/$TBB_BASE
 
