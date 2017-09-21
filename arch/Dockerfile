@@ -1,7 +1,7 @@
 FROM antergos/archlinux-base-devel
 
 ENV ISPC_VERSION="1.9.1"
-ENV EMBREE_VERSION="2.16.5"
+ENV EMBREE_VERSION="2.17.0"
 
 RUN pacman -Syyu --noconfirm gcc clang cmake make intel-tbb openmpi git glfw-x11 wget
 # clean package cache

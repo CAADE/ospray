@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 ENV ISPC_VERSION="1.9.1"
-ENV EMBREE_VERSION="2.16.5"
+ENV EMBREE_VERSION="2.17.0"
 
 RUN apt update
 RUN apt -y upgrade
