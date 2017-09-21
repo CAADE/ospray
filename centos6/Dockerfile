@@ -3,6 +3,7 @@ FROM centos:6
 ENV ISPC_VERSION="1.9.1"
 ENV EMBREE_VERSION="2.17.0"
 ENV TBB_BASE="tbb2018_20170726oss"
+ENV TBB_FOLDER="2018"
 
 RUN mkdir /gitlab
 ENV HOME=/gitlab
@@ -23,7 +24,7 @@ ENV CXX=/opt/rh/devtoolset-3/root/usr/bin/g++
 
 # Download and unpack TBB from official site because distro TBB from centos6 is too old.
 ENV TBB_TAR ${TBB_BASE}_lin.tgz
-RUN wget https://github.com/01org/tbb/releases/download/2017_U7/${TBB_TAR} && tar -xaf ${TBB_TAR} && rm ${TBB_TAR}
+RUN wget https://github.com/01org/tbb/releases/download/${TBB_FOLDER}/${TBB_TAR} && tar -xaf ${TBB_TAR} && rm ${TBB_TAR}
 ENV TBB_ROOT=$HOME/$TBB_BASE
 
 # Download and install embree
