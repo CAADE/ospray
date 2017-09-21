@@ -28,7 +28,7 @@ RUN wget https://github.com/01org/tbb/releases/download/${TBB_FOLDER}/${TBB_TAR}
 ENV TBB_ROOT=$HOME/$TBB_BASE
 
 # Download and install embree
-RUN wget https://github.com/embree/embree/releases/download/v${EMBREE_VERSION}/embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && tar -xvf embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && rpm -iv embree-devel-${EMBREE_VERSION}-1.x86_64.rpm embree-lib-${EMBREE_VERSION}-1.x86_64.rpm --force --nodeps && rm embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz *.rpm
+RUN wget https://github.com/embree/embree/releases/download/v${EMBREE_VERSION}/embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && tar -xvf embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && rpm -iv embree-devel-${EMBREE_VERSION}-1.noarch.rpm embree-lib-${EMBREE_VERSION}-1.x86_64.rpm --force --nodeps && rm embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz *.rpm
 
 # Download and unpack ISPC
 RUN wget https://downloads.sourceforge.net/project/ispcmirror/v${ISPC_VERSION}/ispc-v${ISPC_VERSION}-linux.tar.gz && tar -xvf ispc-v${ISPC_VERSION}-linux.tar.gz && rm ispc-v${ISPC_VERSION}-linux.tar.gz
