@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 ENV ISPC_VERSION="1.9.2"
-ENV EMBREE_VERSION="2.17.1"
+ENV EMBREE_VERSION="2.17.4"
 
 RUN apt update
 RUN apt -y upgrade
