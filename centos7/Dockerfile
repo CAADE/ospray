@@ -1,7 +1,8 @@
 FROM centos:7
 
 ENV ISPC_VERSION="1.9.2"
-ENV EMBREE_VERSION="2.17.4"
+ENV EMBREE2_VERSION="2.17.4"
+ENV EMBREE3_VERSION="3.1.0"
 
 RUN mkdir /gitlab
 ENV HOME=/gitlab
@@ -16,7 +17,8 @@ RUN yum install -y wget git make cmake.x86_64 gcc gcc-c++ tbb.x86_64 tbb-devel.x
 RUN yum install -y environment-modules sudo openmpi openmpi-devel
 
 # Download and install embree
-RUN wget https://github.com/embree/embree/releases/download/v${EMBREE_VERSION}/embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && tar -xvf embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz && rpm -iv embree-devel-${EMBREE_VERSION}-1.noarch.rpm embree-lib-${EMBREE_VERSION}-1.x86_64.rpm --force && rm embree-${EMBREE_VERSION}.x86_64.rpm.tar.gz *.rpm
+RUN wget https://github.com/embree/embree/releases/download/v${EMBREE2_VERSION}/embree-${EMBREE2_VERSION}.x86_64.rpm.tar.gz && tar -xvf embree-${EMBREE2_VERSION}.x86_64.rpm.tar.gz && rpm -iv embree-devel-${EMBREE2_VERSION}-1.noarch.rpm embree-lib-${EMBREE2_VERSION}-1.x86_64.rpm --force && rm embree-${EMBREE2_VERSION}.x86_64.rpm.tar.gz *.rpm
+RUN wget https://github.com/embree/embree/releases/download/v${EMBREE3_VERSION}/embree-${EMBREE3_VERSION}.x86_64.rpm.tar.gz && tar -xvf embree-${EMBREE3_VERSION}.x86_64.rpm.tar.gz && rpm -iv embree3-devel-${EMBREE3_VERSION}-1.noarch.rpm embree3-lib-${EMBREE3_VERSION}-1.x86_64.rpm --force && rm embree-${EMBREE3_VERSION}.x86_64.rpm.tar.gz *.rpm
 
 # Download and unpack ISPC
 RUN wget https://downloads.sourceforge.net/project/ispcmirror/v${ISPC_VERSION}/ispc-v${ISPC_VERSION}-linux.tar.gz && tar -xvf ispc-v${ISPC_VERSION}-linux.tar.gz && rm ispc-v${ISPC_VERSION}-linux.tar.gz
