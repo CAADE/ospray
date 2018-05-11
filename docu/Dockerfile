@@ -1,14 +1,22 @@
 FROM nfnty/arch-mini
 
-# add haskell-core repo, for pandoc
-RUN echo -e "[haskell-core]\nServer = http://xsounds.org/~haskell/core/\$arch\n\n" >> /etc/pacman.conf
-ENV HASKELL_KEY=90513750A418C0FE
-RUN gpg --keyserver hkp://keyserver.ubuntu.com:80 --homedir /etc/pacman.d/gnupg --recv-keys $HASKELL_KEY
-RUN pacman-key --lsign-key $HASKELL_KEY
+RUN pacman -Syyu --noconfirm awk binutils file fakeroot git python python-pandocfilters make ttf-linux-libertine ghostscript fig2dev texlive-latexextra texlive-fontsextra
 
-RUN pacman -Sy --noconfirm awk haskell-pandoc-tool git python python-pandocfilters make ttf-linux-libertine ghostscript fig2dev texlive-latexextra texlive-fontsextra
+# install pandoc from AUR
+WORKDIR /tmp
+RUN curl -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/pandoc-bin.tar.gz
+RUN tar xzf pandoc-bin.tar.gz
+RUN chmod 777 pandoc-bin
+WORKDIR /tmp/pandoc-bin
+RUN useradd -M buildpkg
+USER buildpkg
+RUN makepkg -c --nodeps
+USER root
+RUN pacman -U --noconfirm pandoc-bin-*
+WORKDIR /
 
-# clean package cache
+# cleanup
+RUN rm -rf /tmp/*
 RUN paccache -rfk0
 
 RUN mkdir /gitlab
