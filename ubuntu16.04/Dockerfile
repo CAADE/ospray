@@ -7,6 +7,7 @@ ENV EMBREE3_VERSION="3.2.0"
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install wget cmake g++ clang git libtbb-dev libglfw3-dev libopenmpi-dev alien
+RUN apt -y remove libglfw3-dev #get glfw dependencies, but remove the library itself...
 RUN mkdir /gitlab
 
 ENV HOME=/gitlab
