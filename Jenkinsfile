@@ -5,6 +5,7 @@ pipeline {
     registry = "madajaju/ospray"
     registryCredential = "dockerhub"
   }
+  agent any
   stages {
   stage ('Build Images') {
         parallel {
