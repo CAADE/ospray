@@ -77,6 +77,16 @@ pipeline {
                 }
               }
             }
+            stage('ubuntu') {
+              steps {
+                dir('ubuntu') {
+                  sh 'pwd'
+                  script {
+                      docker.build(registry + ":ubuntu");
+                  }
+                }
+              }
+            }
         }
      }
   }
