@@ -86,7 +86,7 @@ pipeline {
                   }
                 }
                 withDockerContainer(image: registry + ":ubuntu") {
-                      sh "ls -latr /usr/bin/os*"
+                   sh "/usr/bin/ospBenchmark"
                 }
               }
             }
