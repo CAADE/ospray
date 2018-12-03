@@ -1,41 +1,22 @@
 FROM ubuntu:16.04
 
-ENV ISPC_VERSION="1.9.2"
-ENV EMBREE2_VERSION="2.17.4"
-ENV EMBREE3_VERSION="3.2.0"
+ENV OSPRAY_VER="1.7.2"
+ENV EMBREE3_VER="3.3.0"
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install wget cmake g++ clang git libtbb-dev libglfw3-dev libopenmpi-dev alien
-RUN apt -y remove libglfw3-dev #get glfw dependencies, but remove the library itself...
-RUN mkdir /gitlab
+RUN apt -y install pkg-config g++ vim wget clang git netcat-openbsd cmake libtbb-dev imagemagick freeglut3-dev libxmu-dev libxi-dev alien
 
-ENV HOME=/gitlab
+RUN wget https://github.com/embree/embree/releases/download/v$EMBREE3_VER/embree-$EMBREE3_VER.x86_64.rpm.tar.gz
+RUN tar -xvf embree-$EMBREE3_VER.x86_64.rpm.tar.gz
+RUN alien --scripts *.rpm
+RUN dpkg -i *.deb
+RUN rm embree-$EMBREE3_VER.x86_64.rpm.tar.gz *.rpm *.deb
 
-# All builds will be done in home dir
-WORKDIR $HOME
-
-# Download and unpack ISPC
-RUN wget https://downloads.sourceforge.net/project/ispcmirror/v$ISPC_VERSION/ispc-v$ISPC_VERSION-linux.tar.gz && tar -xaf ispc-v$ISPC_VERSION-linux.tar.gz && rm ispc-v$ISPC_VERSION-linux.tar.gz
-
-ENV PATH $PATH:$HOME/ispc-v${ISPC_VERSION}-linux
-
-# Download and install embree
-RUN wget https://github.com/embree/embree/releases/download/v$EMBREE2_VERSION/embree-$EMBREE2_VERSION.x86_64.rpm.tar.gz && \
-     tar -xvf embree-$EMBREE2_VERSION.x86_64.rpm.tar.gz && \
-     alien --scripts *.rpm && \
-     dpkg -i *.deb && \
-     rm embree-$EMBREE2_VERSION.x86_64.rpm.tar.gz *.rpm *.deb
-
-RUN wget https://github.com/embree/embree/releases/download/v$EMBREE3_VERSION/embree-$EMBREE3_VERSION.x86_64.rpm.tar.gz && \
-     tar -xvf embree-$EMBREE3_VERSION.x86_64.rpm.tar.gz && \
-     alien --scripts *.rpm && \
-     dpkg -i *.deb && \
-     rm embree-$EMBREE3_VERSION.x86_64.rpm.tar.gz *.rpm *.deb
-
-ENV CMAKE_PREFIX_PATH=/usr/lib64/cmake/embree-$EMBREE2_VERSION:/usr/lib64/cmake/embree-$EMBREE3_VERSION
-
-# Embree is installed in /usr/lib64 so we have to add it to LD_LIBRARY_PATH
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/
+RUN wget https://github.com/ospray/OSPRay/releases/download/v$OSPRAY_VER/ospray-$OSPRAY_VER.x86_64.rpm.tar.gz
+RUN tar xvzf ospray-$OSPRAY_VER.x86_64.rpm.tar.gz
+RUN alien --scripts *.rpm
+RUN dpkg -i *.deb
+RUN rm ospray-$OSPRAY_VER.x86_64.rpm.tar.gz *.rpm *.deb
 
 CMD ["/bin/bash"]
