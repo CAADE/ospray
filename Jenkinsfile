@@ -12,10 +12,9 @@ pipeline {
             stage('arch') {
               steps {
                 dir('arch') {
-                  sh 'pwd'
-                }
-                script {
-                    docker.build registry + ":arch";
+                    script {
+                        docker.build registry + ":arch";
+                    }
                 }
               }
             }
