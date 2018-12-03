@@ -11,15 +11,19 @@ pipeline {
         parallel {
             stage('arch') {
               steps {
-                dir 'arch'
+                dir('arch') {
+                  sh 'pwd'
+                }
                 script {
-                    docker.build(registry + ":arch");
+                    docker.build("-f arch/Dockerfile", registry + ":arch");
                 }
               }
             }
             stage('centos6') {
               steps {
-                dir 'centos6'
+                dir('centos6') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":centos6");
                 }
@@ -27,7 +31,9 @@ pipeline {
             }
             stage('centos7') {
               steps {
-                dir 'centos7'
+                dir('centos7') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":centos7");
                 }
@@ -35,7 +41,9 @@ pipeline {
             }
             stage('docu') {
               steps {
-                dir 'docu'
+                dir('docu') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":docu");
                 }
@@ -43,7 +51,9 @@ pipeline {
             }
             stage('ubuntu14.04') {
               steps {
-                dir 'ubuntu14.04'
+                dir('ubuntu14.04') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":ubuntu14.04");
                 }
@@ -51,7 +61,9 @@ pipeline {
             }
             stage('ubuntu16.04') {
               steps {
-                dir 'ubuntu16.04'
+                dir('ubuntu16.04') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":ubuntu16.04");
                 }
@@ -59,7 +71,9 @@ pipeline {
             }
             stage('ubuntu17.04') {
               steps {
-                dir 'ubuntu17.04'
+                dir('ubuntu17.04') {
+                  sh 'pwd'
+                }
                 script {
                     docker.build(registry + ":ubuntu17.04");
                 }
