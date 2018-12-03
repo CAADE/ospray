@@ -11,6 +11,7 @@ pipeline {
         parallel {
             stage('arch') {
               steps {
+                dir 'arch'
                 script {
                     docker.build(registry + ":arch", "-f arch/Dockerfile");
                 }
@@ -18,47 +19,53 @@ pipeline {
             }
             stage('centos6') {
               steps {
+                dir 'centos6'
                 script {
-                    docker.build(registry + ":centos6", "-f centos6/Dockerfile");
+                    docker.build(registry + ":centos6");
                 }
               }
             }
             stage('centos7') {
               steps {
+                dir 'centos7'
                 script {
-                    docker.build(registry + ":centos7", "-f centos7/Dockerfile");
+                    docker.build(registry + ":centos7");
                 }
               }
             }
             stage('docu') {
               steps {
+                dir 'docu'
                 script {
-                    docker.build(registry + ":docu", "-f docu/Dockerfile");
+                    docker.build registry + ":docu");
                 }
               }
             }
             stage('ubuntu14.04') {
               steps {
+                dir 'ubuntu14.04'
                 script {
-                    docker.build(registry + ":ubuntu14.04", "-f ubuntu14.04/Dockerfile");
+                    docker.build(registry + ":ubuntu14.04");
                 }
               }
             }
             stage('ubuntu16.04') {
               steps {
+                dir 'ubuntu16.04'
                 script {
-                    docker.build(registry + ":ubuntu16.04", "-f ubuntu16.04/Dockerfile");
+                    docker.build(registry + ":ubuntu16.04");
                 }
               }
             }
             stage('ubuntu17.04') {
               steps {
+                dir 'ubuntu17.04'
                 script {
-                    docker.build(registry + ":ubuntu17.04", "-f unbuntu17.04/Dockerfile");
+                    docker.build(registry + ":ubuntu17.04");
                 }
               }
             }
         }
-    }
+     }
   }
 }
