@@ -82,7 +82,11 @@ pipeline {
                 dir('ubuntu') {
                   sh 'pwd'
                   script {
-                      docker.build(registry + ":ubuntu");
+                      def image = docker.build(registry + ":ubuntu");
+                      image.inside {
+                        sh /usr/bin/ospBenchMark
+                      }
+                      image.push();
                   }
                 }
               }

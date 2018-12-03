@@ -19,5 +19,7 @@ RUN alien --scripts *.rpm
 RUN dpkg -i *.deb
 RUN rm ospray-$OSPRAY_VER.x86_64.rpm.tar.gz *.rpm *.deb
 
+ENV LD_LIBRARY_PATH="/usr/lib64"
+
 CMD ["/bin/bash"]
 
