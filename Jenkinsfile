@@ -15,7 +15,7 @@ pipeline {
                   sh 'pwd'
                 }
                 script {
-                    docker.build("-f arch/Dockerfile", registry + ":arch");
+                    docker.build registry + ":arch";
                 }
               }
             }
