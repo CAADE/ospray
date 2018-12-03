@@ -13,7 +13,7 @@ pipeline {
               steps {
                 dir 'arch'
                 script {
-                    docker.build(registry + ":arch", "-f arch/Dockerfile");
+                    docker.build(registry + ":arch");
                 }
               }
             }
@@ -37,7 +37,7 @@ pipeline {
               steps {
                 dir 'docu'
                 script {
-                    docker.build registry + ":docu");
+                    docker.build(registry + ":docu");
                 }
               }
             }
