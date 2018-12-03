@@ -84,7 +84,7 @@ pipeline {
                   script {
                       def image = docker.build(registry + ":ubuntu");
                       image.inside {
-                        sh '/usr/bin/ospBenchMark'
+                        sh 'ls -latr /usr/bin/os*'
                       }
                   }
                 }
