@@ -83,9 +83,10 @@ pipeline {
                   sh 'pwd'
                   script {
                       def image = docker.build(registry + ":ubuntu");
-                      image.inside {
-                        sh 'ls -latr /usr/bin/os*'
+                      image.inside() {
+                        "ls -latr /usr/bin/os*".execute().text
                       }
+                      image.push();
                   }
                 }
               }
