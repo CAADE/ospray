@@ -12,49 +12,49 @@ pipeline {
             stage('arch') {
               steps {
                 script {
-                    docker.build(registry + ":arch", "arch/Dockerfile");
+                    docker.build(registry + ":arch", "-f arch/Dockerfile");
                 }
               }
             }
             stage('centos6') {
               steps {
                 script {
-                    docker.build(registry + ":centos6", "centos6/Dockerfile");
+                    docker.build(registry + ":centos6", "-f centos6/Dockerfile");
                 }
               }
             }
             stage('centos7') {
               steps {
                 script {
-                    docker.build(registry + ":centos7", "centos6/Dockerfile");
+                    docker.build(registry + ":centos7", "-f centos7/Dockerfile");
                 }
               }
             }
             stage('docu') {
               steps {
                 script {
-                    docker.build(registry + ":docu", "centos6/Dockerfile");
+                    docker.build(registry + ":docu", "-f docu/Dockerfile");
                 }
               }
             }
             stage('ubuntu14.04') {
               steps {
                 script {
-                    docker.build(registry + ":ubuntu14.04", "centos6/Dockerfile");
+                    docker.build(registry + ":ubuntu14.04", "-f ubuntu14.04/Dockerfile");
                 }
               }
             }
             stage('ubuntu16.04') {
               steps {
                 script {
-                    docker.build(registry + ":ubuntu16.04", "centos6/Dockerfile");
+                    docker.build(registry + ":ubuntu16.04", "-f ubuntu16.04/Dockerfile");
                 }
               }
             }
             stage('ubuntu17.04') {
               steps {
                 script {
-                    docker.build(registry + ":ubuntu17.04", "centos6/Dockerfile");
+                    docker.build(registry + ":ubuntu17.04", "-f unbuntu17.04/Dockerfile");
                 }
               }
             }
