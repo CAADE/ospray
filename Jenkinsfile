@@ -80,14 +80,15 @@ pipeline {
             stage('ubuntu') {
               steps {
                 dir('ubuntu') {
+                  def image;
                   sh 'pwd'
                   script {
-                      def image = docker.build(registry + ":ubuntu");
-                      image.inside() {
-                        "ls -latr /usr/bin/os*".execute().text
-                      }
-                      image.push();
+                      image = docker.build(registry + ":ubuntu");
                   }
+                  image.inside() {
+                      sh "ls -latr /usr/bin/os*"
+                  }
+                  image.push();
                 }
               }
             }
