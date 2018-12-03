@@ -86,7 +86,6 @@ pipeline {
                       image.inside {
                         sh /usr/bin/ospBenchMark
                       }
-                      image.push();
                   }
                 }
               }
