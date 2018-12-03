@@ -79,17 +79,17 @@ pipeline {
             }
             stage('ubuntu') {
               steps {
+                def image;
                 dir('ubuntu') {
-                  def image;
                   sh 'pwd'
                   script {
                       image = docker.build(registry + ":ubuntu");
                   }
-                  image.inside() {
-                      sh "ls -latr /usr/bin/os*"
-                  }
-                  image.push();
                 }
+                image.inside() {
+                      sh "ls -latr /usr/bin/os*"
+                }
+                image.push();
               }
             }
         }
