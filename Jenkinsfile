@@ -81,10 +81,12 @@ pipeline {
               steps {
                 dir('ubuntu') {
                   sh 'pwd'
-                  sh 'docker build . -t madajaju/ospray:ubuntu'
-                }
-                docker.image("madajaju/ospray:ubuntu").inside() {
-                    sh '/usr/bin/ospBenchmark'
+                  script {
+                    docker.build(registry + ":ubuntu");
+                    docker.image(registry + ":ubuntu").inside() {
+                      sh '/usr/bin/ospBenchmark'
+                    }
+                  }
                 }
               }
             }
