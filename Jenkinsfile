@@ -81,9 +81,8 @@ pipeline {
               steps {
                 dir('ubuntu') {
                   sh 'pwd'
-                  docker.build(registry + ":ubuntu").inside() {
-                   sh "/usr/bin/ospBenchmark"
-                  }
+                  sh 'docker build -t madajaju/ospray:ubuntu'
+                  sh 'docker run -it madajaju/ospray:ubuntu /usr/bin/ospBenchMark'
                 }
               }
             }
