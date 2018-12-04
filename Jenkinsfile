@@ -84,7 +84,10 @@ pipeline {
                   script {
                     docker.build(registry + ":ubuntu");
                     docker.image(registry + ":ubuntu").inside() {
-                      sh '/usr/bin/ospBenchmark'
+                      sh 'echo "Here"'
+                      sh 'ls -latr'
+                      sh '/usr/bin/ospBenchmark > output'
+                      sh 'cat output'
                     }
                   }
                 }
