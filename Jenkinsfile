@@ -81,12 +81,9 @@ pipeline {
               steps {
                 dir('ubuntu') {
                   sh 'pwd'
-                  script {
-                      docker.build(registry + ":ubuntu");
-                  }
-                }
-                withDockerContainer(image: registry + ":ubuntu") {
+                  docker.build(registry + ":ubuntu").inside() {
                    sh "/usr/bin/ospBenchmark"
+                  }
                 }
               }
             }
