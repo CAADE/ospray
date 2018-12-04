@@ -82,7 +82,7 @@ pipeline {
                 dir('ubuntu') {
                   sh 'pwd'
                   sh 'docker build . -t madajaju/ospray:ubuntu'
-                  sh 'docker run -it madajaju/ospray:ubuntu /usr/bin/ospBenchMark'
+                  sh 'docker run madajaju/ospray:ubuntu /usr/bin/ospBenchmark'
                 }
               }
             }
